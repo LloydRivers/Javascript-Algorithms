@@ -38,26 +38,23 @@ class LinkedList {
   // Insert a new node at the beginning of the list.
   addToStart(value) {
     this.head = new Node(value, this.head); // Create a new node with the given value and set it as the head of the list.
+
+    this.length++; // Increase the length of the list.
   }
 
   // addToEnd a new node to the end of the list.
   addToEnd(value) {
     const node = new Node(value);
 
-    // If the list is empty, set the new node as both the head and the tail.
-    if (!this.head || !this.tail) {
+    if (!this.head) {
       this.head = node;
       this.tail = node;
     } else {
-      // Otherwise, set the tail's next property to the new node, and then set the tail to the new node.
+      if (!this.tail) {
+        this.tail = this.head;
+      }
       this.tail.next = node;
       this.tail = node;
-
-      // Update the tail explanation.
-      /*
-      Since the new node is now the last node in the list, we update the tail to point to it. 
-      We also update the previous tail's next property to point to the new node.
-      */
     }
 
     this.length++;
@@ -126,10 +123,6 @@ class LinkedList {
 // Here's an example of how we can use the LinkedList class:
 
 const list = new LinkedList(); // Create a new linked list.
-
-list.addToEnd(1); // addToEnd the value 1 to the list.
-list.addToEnd(2); // addToEnd the value 2 to the list.
-list.addToEnd(3); // addToEnd the value 3
-
-console.log("list", list.head);
-console.log("list.head", list.head);
+list.addToStart(1); // Add a node with the value 1 to the start of the list.
+list.addToEnd(2); // Add a node with the value 2 to the end of the list.
+console.log("list", list);
