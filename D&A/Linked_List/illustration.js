@@ -9,7 +9,7 @@ class Node {
   /*
      In JavaScript, a constructor is a function that is called when you create a new object using the new keyword. Constructors are used to initialize the object's properties and set its initial state. In this code, the Node class defines a constructor function that takes a value parameter and sets two properties on the new object that is being created: 
   */
-  constructor(value) {
+  constructor(value, next = null) {
     /*
      The this keyword refers to the object that is being created by the constructor. 
 
@@ -23,7 +23,7 @@ class Node {
      Output: Node { value: 42, next: null }
     */
     this.value = value; // The value of the node.
-    this.next = null; // A reference to the next node in the list.
+    this.next = next; // A reference to the next node in the list.
   }
 }
 
@@ -35,21 +35,32 @@ class LinkedList {
     this.length = 0; // The number of nodes in the list.
   }
 
-  // Add a new node to the end of the list.
-  add(value) {
-    const node = new Node(value); // Create a new node with the given value.
+  // Insert a new node at the beginning of the list.
+  addToStart(value) {
+    this.head = new Node(value, this.head); // Create a new node with the given value and set it as the head of the list.
+  }
 
-    if (!this.head) {
-      // If the list is empty, set the new node as both the head and the tail.
+  // addToEnd a new node to the end of the list.
+  addToEnd(value) {
+    const node = new Node(value);
+
+    // If the list is empty, set the new node as both the head and the tail.
+    if (!this.head || !this.tail) {
       this.head = node;
       this.tail = node;
     } else {
       // Otherwise, set the tail's next property to the new node, and then set the tail to the new node.
       this.tail.next = node;
       this.tail = node;
+
+      // Update the tail explanation.
+      /*
+      Since the new node is now the last node in the list, we update the tail to point to it. 
+      We also update the previous tail's next property to point to the new node.
+      */
     }
 
-    this.length++; // Increase the length of the list.
+    this.length++;
   }
 
   // Remove the node at the given index from the list and return its value.
@@ -63,9 +74,17 @@ class LinkedList {
     let previous = null; // Keep track of the previous node we visited.
 
     for (let i = 0; i < index; i++) {
-      // Traverse the list until we reach the node at the given index.
+      /*
+       This is the main loop that traverses the linked list. It starts at the head of the list (current = this.head) and keeps moving to the next node (current = current.next) until it reaches the node at the given index. The loop uses two variables: current (the current node being visited) and previous (the node visited before current). */
+
       previous = current;
       current = current.next;
+
+      /*  
+      During each iteration of the loop, we update previous to be equal to current, and current to be equal to the next node in the list.
+
+       At the end of the loop, current will be pointing to the node at the given index, and previous will be pointing to the node before it. This allows us to insert a new node between previous and current.
+       */
     }
 
     if (previous) {
@@ -108,6 +127,9 @@ class LinkedList {
 
 const list = new LinkedList(); // Create a new linked list.
 
-list.add(1); // Add the value 1 to the list.
-list.add(2); // Add the value 2 to the list.
-list.add(3); // Add the value 3
+list.addToEnd(1); // addToEnd the value 1 to the list.
+list.addToEnd(2); // addToEnd the value 2 to the list.
+list.addToEnd(3); // addToEnd the value 3
+
+console.log("list", list.head);
+console.log("list.head", list.head);
