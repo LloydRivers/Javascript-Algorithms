@@ -5,6 +5,7 @@ In JavaScript, a class is a special type of function that defines a blueprint fo
 
 Define a Node class to represent each node in the linked list.
 */
+
 class Node {
   /*
      In JavaScript, a constructor is a function that is called when you create a new object using the new keyword. Constructors are used to initialize the object's properties and set its initial state. In this code, the Node class defines a constructor function that takes a value parameter and sets two properties on the new object that is being created: 
@@ -30,33 +31,48 @@ class Node {
 // Define a LinkedList class to represent the linked list itself.
 class LinkedList {
   constructor() {
-    this.head = null; // A reference to the first node in the list.
-    this.tail = null; // A reference to the last node in the list.
-    this.length = 0; // The number of nodes in the list.
+    // A reference to the first node in the list.
+    this.head = null;
+
+    // A reference to the last node in the list.
+    this.tail = null;
+
+    // The number of nodes in the list.
+    this.length = 0;
   }
 
   // Insert a new node at the beginning of the list.
-  addToStart(value) {
-    this.head = new Node(value, this.head); // Create a new node with the given value and set it as the head of the list.
+  addToHead(value) {
+    // Create a new node with the given value and set it as the head of the list.
+    this.head = new Node(value, this.head);
 
-    this.length++; // Increase the length of the list.
+    // Increase the length of the list.
+    this.length++;
   }
 
-  // addToEnd a new node to the end of the list.
-  addToEnd(value) {
+  // add a new node to the end of the list.
+  addToTail(value) {
+    // Create a new node with the given value
     const node = new Node(value);
 
+    // If the list is empty, set the head and tail to the new node
     if (!this.head) {
       this.head = node;
       this.tail = node;
     } else {
+      // If the list is not empty
+      // Check if the tail is null
       if (!this.tail) {
+        // Set the tail to the head
         this.tail = this.head;
       }
+      // Set the next property of the current tail to the new node
       this.tail.next = node;
+      // Update the tail to be the new node
       this.tail = node;
     }
 
+    // Increase the length of the list
     this.length++;
   }
 
@@ -123,6 +139,12 @@ class LinkedList {
 // Here's an example of how we can use the LinkedList class:
 
 const list = new LinkedList(); // Create a new linked list.
-list.addToStart(1); // Add a node with the value 1 to the start of the list.
-list.addToEnd(2); // Add a node with the value 2 to the end of the list.
+// list.addToHead(1); // Add a node with the value 1 to the start of the list.
+// list.addToTail(2); // Add a node with the value 2 to the end of the list.
+
+list.addToHead(1);
+list.addToHead(2);
+list.addToHead(3);
+list.addToTail(4);
+list.addToTail(5);
 console.log("list", list);
