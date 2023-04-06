@@ -46,6 +46,11 @@ class LinkedList {
     // Create a new node with the given value and set it as the head of the list.
     this.head = new Node(value, this.head);
 
+    // If the list was empty, set the tail to the new node.
+    if (this.tail === null) {
+      this.tail = this.head;
+    }
+
     // Increase the length of the list.
     this.length++;
   }
@@ -134,6 +139,29 @@ class LinkedList {
 
     return current.value; // Return the value of the node.
   }
+
+  print() {
+    // Set the current node to the head of the list
+    let currentNode = this.head;
+
+    // Start building the list string with the "head" label
+    let listString = "head ";
+
+    // Traverse the list until the end is reached
+    while (currentNode !== null) {
+      // Add the current node's value to the list string
+      listString += `${currentNode.value} `;
+
+      // Move to the next node in the list
+      currentNode = currentNode.next;
+    }
+
+    // Add the "tail" label to the end of the list string
+    listString += "tail";
+
+    // Print the final list string to the console
+    console.log(listString);
+  }
 }
 
 // Here's an example of how we can use the LinkedList class:
@@ -147,4 +175,4 @@ list.addToHead(2);
 list.addToHead(3);
 list.addToTail(4);
 list.addToTail(5);
-console.log("list", list);
+list.print();
